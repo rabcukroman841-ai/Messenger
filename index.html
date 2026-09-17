@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MenFom Beta</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f6f8;color:#111}
+.app{height:100vh;display:flex;max-width:1500px;margin:auto;background:#fff;overflow:hidden}
+aside{width:330px;border-right:1px solid #e5e7eb;background:#fafbfc;display:flex;flex-direction:column}
+.logo{height:72px;display:flex;align-items:center;gap:10px;padding:12px 18px;font-size:24px;font-weight:800}
+.logo img{width:46px;height:46px;object-fit:cover;border-radius:13px}.beta{font-size:10px;background:#111;color:#fff;border-radius:6px;padding:4px 6px}
+.search{margin:0 14px 14px;padding:12px 14px;border:0;border-radius:13px;background:#eef0f2;outline:0}
+.stories{padding:0 14px 15px;border-bottom:1px solid #e7e7e7}.stories h4{margin:4px 0 10px}
+.storyrow{display:flex;gap:10px;overflow:auto}.story{min-width:58px;text-align:center;font-size:11px}
+.story img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:3px solid #fff;outline:2px solid #111}
+.chats{overflow:auto;flex:1}.chat{display:flex;gap:11px;padding:13px 16px;cursor:pointer}.chat:hover,.chat.active{background:#eceff1}
+.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#ddd}.chat b{display:block}.chat small{color:#888}
+main{flex:1;display:flex;flex-direction:column}.head{height:72px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.person{display:flex;align-items:center;gap:11px}.status{font-size:12px;color:#777}.actions{display:flex;gap:7px}
+button{cursor:pointer;border:0}.icon{width:40px;height:40px;border-radius:12px;background:#f0f1f3;font-size:17px}
+.messages{flex:1;overflow:auto;padding:24px;background:#f7f8f9}.day{text-align:center;color:#999;font-size:11px;margin:5px 0 20px}
+.msg{max-width:65%;padding:11px 13px;border-radius:16px;margin:8px 0;background:#fff;border:1px solid #eee}.msg.me{margin-left:auto;background:#111;color:#fff;border:0;border-bottom-right-radius:5px}.msg:not(.me){border-bottom-left-radius:5px}
+.time{font-size:9px;opacity:.5;margin-top:5px}.media{max-width:300px;border-radius:13px;display:block}.file{display:flex;align-items:center;gap:10px;background:#eef0f2;padding:10px;border-radius:12px}.fileicon{font-size:24px}
+.voice{display:flex;align-items:center;gap:9px}.voiceBtn{width:58px;height:58px;border-radius:50%;background:#111;color:#fff;font-size:20px}.voiceBtn.light{background:#fff;color:#111;border:1px solid #ddd}
+.music{background:#eef0f2;padding:11px;border-radius:13px}.music audio{width:100%;margin-top:7px}
+.composer{min-height:72px;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:8px;padding:12px 16px}.input{flex:1;background:#eef0f2;border:0;outline:0;border-radius:14px;padding:14px}.send{background:#111;color:#fff;border-radius:13px;padding:13px 17px}
+.modal{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;z-index:5}.box{background:#fff;width:400px;max-width:92%;border-radius:22px;padding:22px}.box h2{margin-top:0}.box input,.box select{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:11px}.primary{width:100%;padding:13px;border-radius:11px;background:#111;color:#fff;margin-top:8px}
+.callAvatar{width:100px;height:100px;border-radius:50%;display:block;margin:20px auto}.callBtns{display:flex;justify-content:center;gap:12px}.end{background:#111;color:#fff}
+@media(max-width:750px){aside{width:82px}.logo span,.beta,.search,.stories h4,.chat div:not(.avatar){display:none}.logo{justify-content:center}.stories{padding:8px}.storyrow{display:block}.story{margin:9px 0}.head{padding:0 10px}.messages{padding:15px}.msg{max-width:85%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo"><img src="1789654774396(2).jpg"><span>MenFom</span><i class="beta">BETA</i></div>
+  <input class="search" id="search" placeholder="Поиск...">
+  <section class="stories"><h4>Истории</h4><div class="storyrow">
+    <div class="story"><img src="1789654774396(2).jpg"><br>Моя</div>
+    <div class="story"><img src="https://i.pravatar.cc/100?img=12"><br>Alex</div>
+    <div class="story"><img src="https://i.pravatar.cc/100?img=32"><br>Roman</div>
+    <div class="story"><img src="https://i.pravatar.cc/100?img=44"><br>Max</div>
+  </div></section>
+  <div class="chats" id="chats">
+    <div class="chat active" onclick="selectChat('Alex',this)"><img class="avatar" src="https://i.pravatar.cc/100?img=12"><div><b>Alex</b><small>Привет! Как дела?</small></div></div>
+    <div class="chat" onclick="selectChat('Roman',this)"><img class="avatar" src="https://i.pravatar.cc/100?img=32"><div><b>Roman</b><small>🎵 Песня</small></div></div>
+    <div class="chat" onclick="selectChat('Max',this)"><img class="avatar" src="https://i.pravatar.cc/100?img=44"><div><b>Max</b><small>📷 Фото</small></div></div>
+  </div>
+</aside>
+
+<main>
+<header class="head">
+  <div class="person"><img class="avatar" src="https://i.pravatar.cc/100?img=12"><div><b id="title">Alex</b><div class="status">в сети • @alex</div></div></div>
+  <div class="actions">
+    <button class="icon" onclick="call('voice')">☎</button>
+    <button class="icon" onclick="call('video')">◉</button>
+    <button class="icon" onclick="openModal('settings')">⋮</button>
+  </div>
+</header>
+
+<section class="messages" id="messages">
+  <div class="day">Сегодня</div>
+  <div class="msg">Привет! 👋<div class="time">17:21</div></div>
+  <div class="msg me">Привет! Всё отлично.<div class="time">17:22 ✓✓</div></div>
+  <div class="msg"><div class="voice"><button class="voiceBtn" onclick="play(this)">▶</button><span>Голосовое • 0:18</span></div></div>
+  <div class="msg me"><div class="music"><b>🎵 My Song.mp3</b><audio controls></audio></div></div>
+  <div class="msg"><img class="media" src="https://picsum.photos/420/280"><div class="time">📷 Фото</div></div>
+  <div class="msg me"><div class="file"><span class="fileicon">📄</span><span><b>document.pdf</b><br><small>2.4 MB</small></span></div></div>
+</section>
+
+<div class="composer">
+  <button class="icon" onclick="file.click()">＋</button>
+  <input id="file" type="file" hidden multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.zip">
+  <button class="icon" id="mic" onclick="voice()">🎙</button>
+  <input class="input" id="text" placeholder="Сообщение..." onkeydown="if(event.key==='Enter')send()">
+  <button class="send" onclick="send()">Отправить</button>
+</div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="box" id="box"></div></div>
+
+<script>
+const messages=document.getElementById('messages'), file=document.getElementById('file');
+let current='Alex', rec=null,chunks=[],recording=false;
+
+function selectChat(name,el){current=name;document.getElementById('title').textContent=name;document.querySelectorAll('.chat').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+function scroll(){messages.scrollTop=messages.scrollHeight}
+function send(){let x=document.getElementById('text'),t=x.value.trim();if(!t)return;add(`<div>${escapeHtml(t)}</div><div class="time">сейчас ✓</div>`,true);x.value=''}
+function add(html,me=false){let d=document.createElement('div');d.className='msg'+(me?' me':'');d.innerHTML=html;messages.appendChild(d);scroll()}
+function escapeHtml(s){let d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+file.onchange=()=>[...file.files].forEach(f=>{
+ let u=URL.createObjectURL(f);
+ if(f.type.startsWith('image/')) add(`<img class="media" src="${u}"><div class="time">📷 ${escapeHtml(f.name)}</div>`,true);
+ else if(f.type.startsWith('video/')) add(`<video class="media" controls src="${u}"></video><div class="time">🎬 ${escapeHtml(f.name)}</div>`,true);
+ else if(f.type.startsWith('audio/')) add(`<div class="music"><b>🎵 ${escapeHtml(f.name)}</b><audio controls src="${u}"></audio></div>`,true);
+ else add(`<div class="file"><span class="fileicon">📄</span><span><b>${escapeHtml(f.name)}</b><br><small>${(f.size/1048576).toFixed(1)} MB</small></span></div>`,true);
+});
+
+async function voice(){
+ if(recording){rec.stop();recording=false;mic.textContent='🎙';return}
+ try{
+  let stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];rec=new MediaRecorder(stream);
+  rec.ondataavailable=e=>chunks.push(e.data);
+  rec.onstop=()=>{let u=URL.createObjectURL(new Blob(chunks,{type:'audio/webm'}));add(`<div class="voice"><button class="voiceBtn" onclick="new Audio('${u}').play()">▶</button><span>🎙 Голосовое</span></div>`,true);stream.getTracks().forEach(t=>t.stop())};
+  rec.start();recording=true;mic.textContent='⏹';
+ }catch(e){alert('Разрешите доступ к микрофону')}
+}
+function play(b){b.textContent='⏸';setTimeout(()=>b.textContent='▶',1000)}
+function call(type){openBox(`<h2>${type==='video'?'Видеозвонок':'Голосовой звонок'}</h2><img class="callAvatar" src="https://i.pravatar.cc/200?img=12"><h3 style="text-align:center">${current}</h3><p style="text-align:center;color:#888">Соединение...</p><div class="callBtns"><button class="icon">🎙</button><button class="icon">🔊</button><button class="icon end" onclick="closeModal()">✕</button></div>`)}
+function openModal(){openBox(`<h2>MenFom</h2><button class="primary" onclick="profile()">👤 Информация</button><button class="primary" onclick="privacy()">🔒 Конфиденциальность</button><button class="primary" onclick="security()">🛡 Двухэтапная проверка</button><button class="primary" onclick="register()">👤 Регистрация / username</button><p>MenFom Beta 0.1</p>`)}
+function profile(){openBox(`<h2>Профиль</h2><p><b>Имя:</b> Alex</p><p><b>Username:</b> @alex</p><p><b>Статус:</b> В сети</p><p><b>MenFom ID:</b> MF-20481</p>`)}
+function privacy(){openBox(`<h2>Конфиденциальность</h2><select><option>Кто может писать: все</option><option>Только контакты</option><option>Никто</option></select><select><option>Статус виден всем</option><option>Только контактам</option><option>Никому</option></select><button class="primary" onclick="closeModal()">Сохранить</button>`)}
+function security(){openBox(`<h2>🛡 2FA</h2><p>Дополнительная защита аккаунта.</p><input type="password" placeholder="Пароль 2FA"><input placeholder="Код подтверждения"><button class="primary" onclick="alert('В демо включено');closeModal()">Включить 2FA</button>`)}
+function register(){openBox(`<h2>Регистрация</h2><input placeholder="Имя"><input placeholder="@username"><input type="email" placeholder="Email"><input type="password" placeholder="Пароль"><button class="primary" onclick="alert('Демо-регистрация');closeModal()">Создать аккаунт</button>`)}
+function openBox(x){document.getElementById('box').innerHTML=x;document.getElementById('modal').style.display='flex'}
+function closeModal(){document.getElementById('modal').style.display='none'}
+document.getElementById('search').oninput=e=>document.querySelectorAll('.chat').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(e.target.value.toLowerCase())?'flex':'none');
+</script>
+</body>
+</html>
